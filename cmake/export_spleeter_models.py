@@ -15,7 +15,8 @@ SPLEETER_ROOT = os.path.dirname(spleeter.__file__)
 
 def export_model(pretrained_path: str, model_name: str, export_directory: str):
     # read the json parameters
-    param_path = os.path.join(SPLEETER_ROOT, "resources", model_name + ".json")
+    print('exporting 16khz')
+    param_path = os.path.join(SPLEETER_ROOT, "resources", model_name + "-16kHz.json")
     with open(param_path) as parameter_file:
         parameters = json.load(parameter_file)
     parameters['MWF'] = False  # default parameter
