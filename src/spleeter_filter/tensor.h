@@ -4,7 +4,6 @@
 #include <cassert>
 #include <vector>
 #include <complex>
-#include <cstring>
 #include "spleeter_common/tf_handle.h"
 
 namespace spleeter {

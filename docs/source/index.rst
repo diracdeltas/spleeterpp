@@ -4,14 +4,15 @@ Welcome to the Spleeterpp Library documentation!
 *Spleeterpp* is a library to ease the use of the `Spleeter
 <https://github.com/deezer/spleeter>`_ project in C++ programs.
 
-What it is
-^^^^^^^^^^
+What it convers
+^^^^^^^^^^^^^^^
 
-This project is an attempt at bridging the gap between the spleeter research
-team and people looking to integrate their work in creative ways.
+This project is an attempt at bringing audio source separation into a real-time
+process.
 
-What it is NOT
-^^^^^^^^^^^^^^
+
+What it does NOT cover
+^^^^^^^^^^^^^^^^^^^^^^
 
 Spleeter only runs on 44.1KHz stereo input. We do not provide any means to
 convert a signal in that format as it is already covered by other tools.
@@ -27,21 +28,33 @@ The following snippet shows how to use the two stems extraction.
 
   ...
 
-  // Initialize spleeter
-  spleeter::Initialize(std::string(SPLEETER_MODELS), {spleeter::TwoStems}, err);
+  const auto separation_type = spleeter::FourStems;
 
-  // Read the input data, convert it to 44.1KHz and Map it into a Waveform
+  // Initialize spleeter
+  spleeter::Initialize(std::string(SPLEETER_MODELS), {separation_type}, err);
+
+  // Initialize the on-line filter
+  spleeter::Filter filter(separation_type);
+  filter.Init(err);
+
+  // initialize a buffer
+  const auto block_size = 2048;  // defined by the plug-in host
+  filter.set_block_size(block_size);
+  rtff::AudioBuffer buffer(block_size, filter.channel_count());
+
   ...
 
-  // Run the two stems extraction
-  spleeter::Waveform vocals, accompaniment;
-  spleeter::Split(source, &vocals, &accompaniment, err);
+  // For each block
+  float* data_ptr = ...
+  buffer.fromInterleaved(sample_ptr);
+  filter.ProcessBlock(&buffer);
+  buffer.toInterleaved(sample_ptr);
 
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   how_it_works
    build
-   offline
-   filter
+   reference

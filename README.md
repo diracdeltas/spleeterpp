@@ -1,7 +1,5 @@
 [![Documentation Status](https://readthedocs.org/projects/spleeterpp/badge/?version=latest)](https://spleeterpp.readthedocs.io/en/latest/?badge=latest)
 [![Build Status](https://travis-ci.com/gvne/spleeterpp.svg?branch=master)](https://travis-ci.com/gvne/spleeterpp)
-[![Build status](https://ci.appveyor.com/api/projects/status/6sk3vq24ms9oy9l0/branch/master?svg=true)](https://ci.appveyor.com/project/gvne/spleeterpp/branch/master)
-
 
 # Spleeter C++ Inference
 
@@ -13,12 +11,19 @@ model in C++.
 
 ## Build
 
-### Note: The system is tested on osx 10.15, ubuntu 18.04 and Windows10 (VS2019)
+### Note: The system is tested on osx 10.15, ubuntu 18.04 and Windows10 (VS2017)
 
 We base our work on `cmake`.
 ```bash
 mkdir build && cd build
 cmake ..
+cmake --build .
+```
+
+For windows, we only support Visual Studio 2017 in Release mode (see [this](https://github.com/tensorflow/tensorflow/issues/17778#issuecomment-384816014)).
+```bash
+mkdir build && cd build
+cmake -G"Visual Studio 15 2017 Win64"  ..
 cmake --build .
 ```
 

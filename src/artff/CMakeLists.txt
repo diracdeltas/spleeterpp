@@ -5,8 +5,6 @@ add_library(artff
   buffer/circular_frame_buffer.cc
   buffer/circular_future_buffer.h
   buffer/circular_future_buffer.cc
-  semaphore.cc
-  semaphore.h
 )
 
 target_link_libraries(artff
@@ -21,7 +19,6 @@ install(TARGETS artff
 
 install(FILES
   ${CMAKE_CURRENT_SOURCE_DIR}/abstract_filter.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/semaphore.h
   DESTINATION include/artff/
 )
 install(FILES
